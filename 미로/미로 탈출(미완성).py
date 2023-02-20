@@ -110,6 +110,3 @@ canvas.create_image(mx*20+10, my*20+10, image=img,tag="P")
 
 main_proc()
 root.mainloop()
-    
-
-
