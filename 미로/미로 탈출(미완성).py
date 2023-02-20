@@ -35,24 +35,6 @@ def main_proc():
     canvas.coords("P", mx*20+10, my*20+10)
     root.after(100,main_proc)
 
-def enemy():
-    global ex,ey
-    direc = random.randint(1,4)
-    if direc==1 and maze[ey-1][ex] == 0 or ey-1==my and ex==mx:
-        ey = ey-1
-        print("E : Up")
-    if direc==2 and maze[ey+1][ex] == 0 or ey+1==my and ex==mx:
-        ey = ey+1
-        print("E : Down")
-    if direc==3 and maze[ey][ex-1] == 0 or ex-1==mx and ey==my:
-        ex = ex-1
-        print("E : Left")
-    if direc==4 and maze[ey][ex+1] == 0 or ex+1==mx and ey==my:
-        ex = ex+1
-        print("E : Right")
-    canvas.coords("E", ex*20+10, ey*20+10)
-    root.after(100,enemy)
-
 def Game_Over():
     print("System : Game Over")
     time.sleep(1)
@@ -124,11 +106,8 @@ for y in range(50):
             canvas.create_rectangle(x*20,y*20,x*20+19,y*20+19,fill="yellow", width=0)
 
 img=tkinter.PhotoImage(file="player.png")
-Eimg=tkinter.PhotoImage(file="enemy.png")
 canvas.create_image(mx*20+10, my*20+10, image=img,tag="P")
-canvas.create_image(ex*20+10, ey*20+10, image=Eimg,tag="E")
 
-enemy()
 main_proc()
 root.mainloop()
     
