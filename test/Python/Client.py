@@ -1,12 +1,20 @@
-from socket import *
+import socket
+from threading import Thread
 
-clientSock = socket(AF_INET, SOCK_STREAM)
-clientSock.connect(('127.0.0.1', 8080))
+def recv_message(sock):
+    while True:
+        msg = sock.recv(1024)
+        print(msg.decode())
 
-print('연결 확인 됐습니다.')
-clientSock.send('I am a client'.encode('utf-8'))
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.connect(("127.0.0.1", 8080))
+th = Thread(target=recv_message, args=(sock, ))
+th.daemon = True
+th.start()
 
-print('메시지를 전송했습니다.')
+while True:
+    msg = input("입력 >")
+    sock.send(msg.encode())
 
-data = clientSock.recv(1024)
-print('받은 데이터 : ', data.decode('utf-8'))
+    if msg == "/by":
+        break
